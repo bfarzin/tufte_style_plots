@@ -8,9 +8,10 @@ that implement Edward Tufte's principles of data visualization.
 from typing import Dict, List
 
 # Color palette
+# Tufte style uses grays instead of pure black for softer, more elegant visuals
 TUFTE_COLORS: Dict[str, str] = {
-    'primary': '#000000',      # Black - main data color
-    'secondary': '#666666',    # Dark gray - secondary series
+    'primary': '#555555',      # Dark gray - main data color (not pure black)
+    'secondary': '#777777',    # Medium-dark gray - secondary series
     'tertiary': '#999999',     # Medium gray - tertiary series
     'accent_red': '#E74C3C',   # Muted red - accent color
     'accent_blue': '#3498DB',  # Muted blue - accent color
@@ -19,11 +20,12 @@ TUFTE_COLORS: Dict[str, str] = {
 }
 
 # Grayscale palette for multiple series
+# Using grays instead of pure black for Tufte style
 GRAYSCALE_PALETTE: List[str] = [
-    '#000000',  # Black
-    '#666666',  # Dark gray
+    '#555555',  # Dark gray (not pure black)
+    '#777777',  # Medium-dark gray
     '#999999',  # Medium gray
-    '#CCCCCC',  # Light gray
+    '#BBBBBB',  # Light-medium gray
 ]
 
 # Typography
