@@ -97,6 +97,9 @@ def histogram(
     # Range frame on x-axis (y-axis starts at 0 for percentages)
     range_frame(ax, x_data=data_array, y_data=None)
     ax.set_ylim(bottom=0)
+    # Set y-spine to show range from 0 to max percentage
+    y_max = np.max(percentages) if len(percentages) > 0 else 100
+    ax.spines['left'].set_bounds(0, y_max)
 
     return fig, ax
 
@@ -399,7 +402,7 @@ def _scatter_with_marginals(
     set_tufte_style(ax_main)
     range_frame(ax_main, x_data=x_array, y_data=y_array)
 
-    # Style marginal plots
+    # Style marginal plots - remove all spines (they're just decorative)
     ax_top.spines['top'].set_visible(False)
     ax_top.spines['right'].set_visible(False)
     ax_top.spines['left'].set_visible(False)

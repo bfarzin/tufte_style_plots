@@ -67,41 +67,50 @@ def range_frame(
     y_padding: float = 0.02
 ) -> None:
     """
-    Set axis limits to exactly span data range (range frame).
+    Apply Tufte's range frame: spines only extend from min to max of data.
 
-    Instead of adding arbitrary padding, sets axis limits to the
-    actual data extent with minimal padding.
+    This is a key feature of Tufte-style plots - the axis spines themselves
+    are bounded to show the data range at a glance, rather than extending
+    arbitrarily beyond the data.
 
     Args:
         ax: Matplotlib Axes object
         x_data: X-axis data (optional)
         y_data: Y-axis data (optional)
-        x_padding: Fractional padding for x-axis (default: 2%)
-        y_padding: Fractional padding for y-axis (default: 2%)
+        x_padding: Fractional padding for x-axis limits (default: 2%)
+        y_padding: Fractional padding for y-axis limits (default: 2%)
     """
     if x_data is not None:
         x_min, x_max = np.min(x_data), np.max(x_data)
         x_range = x_max - x_min
         if x_range > 0:
+            # Set axis limits with padding for visual breathing room
             ax.set_xlim(
                 x_min - x_padding * x_range,
                 x_max + x_padding * x_range
             )
+            # Set spine bounds to exact data range (no padding)
+            ax.spines['bottom'].set_bounds(x_min, x_max)
         else:
             # Single value or all same
             ax.set_xlim(x_min - 0.5, x_max + 0.5)
+            ax.spines['bottom'].set_bounds(x_min, x_max)
 
     if y_data is not None:
         y_min, y_max = np.min(y_data), np.max(y_data)
         y_range = y_max - y_min
         if y_range > 0:
+            # Set axis limits with padding for visual breathing room
             ax.set_ylim(
                 y_min - y_padding * y_range,
                 y_max + y_padding * y_range
             )
+            # Set spine bounds to exact data range (no padding)
+            ax.spines['left'].set_bounds(y_min, y_max)
         else:
             # Single value or all same
             ax.set_ylim(y_min - 0.5, y_max + 0.5)
+            ax.spines['left'].set_bounds(y_min, y_max)
 
 
 def minimal_ticks(ax: Axes, max_ticks: int = TICK_STYLES['max_ticks']) -> None:
